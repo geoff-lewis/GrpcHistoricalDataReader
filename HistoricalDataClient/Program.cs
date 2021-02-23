@@ -13,7 +13,7 @@ namespace HistoricalDataClient
     static void Main(string[] args)
     {
 
-      var passThroughdoubleHistoricalValue = new HistoricalDataValue<double>(123.0.ToDataValue(), HistoricalDataValues.GetDoubleValue, "TestSavedItem1", "Length");
+      var passThroughdoubleHistoricalValue = DoubleHistoricalValue.Create(123.0, "TestSavedItem1", "Length");
       var passThroughStringHistoricalValue = new HistoricalDataValue<string>("Hello".ToDataValue(), HistoricalDataValues.GetStringValue, "TestSavedItem1", "Greeting");
 
       var convertedDoubleScaledHistoricalValue = new HistoricalDataValue<double>(123.0.ToDataValue(), ScaleValue, "TestSavedItem1", "Length");
