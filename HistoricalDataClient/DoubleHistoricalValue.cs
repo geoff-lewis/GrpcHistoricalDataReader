@@ -13,6 +13,9 @@ namespace HistoricalDataClient
         }
 
         public static DoubleHistoricalValue Create(double doubleValue, string savedItemId, string propertyName) =>
-             new DoubleHistoricalValue(doubleValue.ToDataValue(), HistoricalDataValues.GetDoubleValue, savedItemId, propertyName); 
+             Create(doubleValue, HistoricalDataValues.GetDoubleValue, savedItemId, propertyName);
+
+        public static DoubleHistoricalValue Create(double doubleValue, Func<DataValue,double> valueProcessor, string savedItemId, string propertyName) =>
+            new DoubleHistoricalValue(doubleValue.ToDataValue(), valueProcessor, savedItemId, propertyName);
     }
 }

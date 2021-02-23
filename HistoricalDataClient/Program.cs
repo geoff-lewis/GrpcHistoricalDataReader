@@ -16,9 +16,9 @@ namespace HistoricalDataClient
       var passThroughdoubleHistoricalValue = DoubleHistoricalValue.Create(123.0, "TestSavedItem1", "Length");
       var passThroughStringHistoricalValue = new HistoricalDataValue<string>("Hello".ToDataValue(), HistoricalDataValues.GetStringValue, "TestSavedItem1", "Greeting");
 
-      var convertedDoubleScaledHistoricalValue = new HistoricalDataValue<double>(123.0.ToDataValue(), ScaleValue, "TestSavedItem1", "Length");
-      var convertedDoubleToStringHistoricalValue = new HistoricalDataValue<string>(123.0.ToDataValue(), WrapValue, "TestSavedItem1", "Length");
-      var convertedStringToSuffixHistoricalValue = new HistoricalDataValue< string>("Hello".ToDataValue(), AddSuffix, "TestSavedItem1", "Greeting");
+      var convertedDoubleScaledHistoricalValue = DoubleHistoricalValue.Create(123.0, ScaleValue, "TestSavedItem1", "Length");
+      var convertedDoubleToStringHistoricalValue = StringHistoricalValue.Create(123.0.ToDataValue(), WrapValue, "TestSavedItem1", "Length");
+      var convertedStringToSuffixHistoricalValue = StringHistoricalValue.Create("Hello", AddSuffix, "TestSavedItem1", "Greeting");
 
       PrintInitial(nameof(passThroughdoubleHistoricalValue), passThroughdoubleHistoricalValue);
       PrintInitial(nameof(passThroughStringHistoricalValue), passThroughStringHistoricalValue);
@@ -36,16 +36,6 @@ namespace HistoricalDataClient
       Console.WriteLine("Press any key to exit");
       Console.ReadLine();
 
-      //var historicalDataResult = MessageToDomain.CreateHistoricalDataResult(historicalDataResponseMessage);
-
-      //var parsedValues = historicalDataResult.HistoricalValues.Select(hdv => hdv.Value.Value);
-      //these are all the values but they are a HistoricalDataValue
-      //type HistoricalDataValue =
-      // |DoubleValue of DoubleHistoricalDataValue
-      // | StringValue of StringHistoricalDataValue
-
-      //do I need a function  type GetDouble DoubleHistoricalDataValue -> Double ?
-
     }
 
     private static void PrintInitial<T>(string variableName, IHistoricalDataValue<T> historicalValue)
@@ -57,11 +47,15 @@ namespace HistoricalDataClient
     private static void ReadHistoricalValue<T>(string variableName, IHistoricalDataValue<T> historicalValue)
     {
       Console.WriteLine();
-      Console.WriteLine($"Reading historical values for {historicalValue.SavedItemId} - {historicalValue.PropertyName}");
+      Console.WriteLine($"Reading historical values for {variableName} => {historicalValue.SavedItemId} - {historicalValue.PropertyName}");
       var result = historicalValue.GetHistoricalValues();
       result.ToList().ForEach(value => Console.WriteLine($"{value.Value} @ {value.TimeStamp.ToShortDateString()}"));
     }
 
+
+    //*********************************************************************************************
+    // The methods below are candidates for moving into an F# assembly that handles value conversion
+    //**********************************************************************************************
 
     private static double ScaleValue(DataValue dataValue)
     {
@@ -75,7 +69,7 @@ namespace HistoricalDataClient
 
     private static string AddSuffix(DataValue dataValue)
     {
-        return $"{HistoricalDataValues.GetStringValue(dataValue)}, Geoff";
+        return $"{HistoricalDataValues.GetStringValue(dataValue)}Geoff";
     }
 
 
