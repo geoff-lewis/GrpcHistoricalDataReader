@@ -13,12 +13,12 @@ namespace HistoricalDataClient
     static void Main(string[] args)
     {
 
-      var passThroughdoubleHistoricalValue = new PassThroughHistoricalDataValue<double>(123, HistoricalDataDomain.MessageToDomain.GetDoubleValue, "TestSavedItem1", "Length");
-      var passThroughStringHistoricalValue = new PassThroughHistoricalDataValue<string>("Hello", HistoricalDataDomain.MessageToDomain.GetStringValue, "TestSavedItem1", "Greeting");
+      var passThroughdoubleHistoricalValue = new HistoricalDataValue<double>(123.0.ToDataValue(), HistoricalDataValues.GetDoubleValue, "TestSavedItem1", "Length");
+      var passThroughStringHistoricalValue = new HistoricalDataValue<string>("Hello".ToDataValue(), HistoricalDataValues.GetStringValue, "TestSavedItem1", "Greeting");
 
-      var convertedDoubleScaledHistoricalValue = new ConvertedHistoricalDataValue<double,double>(123, HistoricalDataDomain.MessageToDomain.GetDoubleValue, doubleValue => doubleValue * 100, "TestSavedItem1", "Length");
-      var convertedDoubleToStringHistoricalValue = new ConvertedHistoricalDataValue<double, string>(123, HistoricalDataDomain.MessageToDomain.GetDoubleValue, doubleValue => $"I was a double {doubleValue}", "TestSavedItem1", "Length");
-      var convertedStringToSuffixHistoricalValue = new ConvertedHistoricalDataValue<string, string>("Hello", HistoricalDataDomain.MessageToDomain.GetStringValue, stringValue => $"{stringValue} Geoff", "TestSavedItem1", "Greeting");
+      var convertedDoubleScaledHistoricalValue = new HistoricalDataValue<double>(123.0.ToDataValue(), ScaleValue, "TestSavedItem1", "Length");
+      var convertedDoubleToStringHistoricalValue = new HistoricalDataValue<string>(123.0.ToDataValue(), WrapValue, "TestSavedItem1", "Length");
+      var convertedStringToSuffixHistoricalValue = new HistoricalDataValue< string>("Hello".ToDataValue(), AddSuffix, "TestSavedItem1", "Greeting");
 
       PrintInitial(nameof(passThroughdoubleHistoricalValue), passThroughdoubleHistoricalValue);
       PrintInitial(nameof(passThroughStringHistoricalValue), passThroughStringHistoricalValue);
@@ -63,7 +63,23 @@ namespace HistoricalDataClient
     }
 
 
-  }
+    private static double ScaleValue(DataValue dataValue)
+    {
+        return HistoricalDataValues.GetDoubleValue(dataValue) * 100;
+    }
+
+    private static string WrapValue(DataValue dataValue)
+    {
+        return $"I was a double {HistoricalDataValues.GetDoubleValue(dataValue)}";
+    }
+
+    private static string AddSuffix(DataValue dataValue)
+    {
+        return $"{HistoricalDataValues.GetStringValue(dataValue)}, Geoff";
+    }
+
+
+    }
 
 
 

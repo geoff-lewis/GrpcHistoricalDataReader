@@ -12,7 +12,7 @@ namespace HistoricalDataClient
 
     string PropertyName { get; }
 
-    IEnumerable<DataValue> GetHistoricalValues();
+    IEnumerable<OpcDataValue> GetHistoricalValues();
 
   }
 }

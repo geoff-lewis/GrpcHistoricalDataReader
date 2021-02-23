@@ -4,9 +4,9 @@ using System.Text;
 
 namespace HistoricalDataClient
 {
-  public class DataValue
+  public class OpcDataValue
   {
-    public DataValue(object value, DateTime timeStamp)
+    public OpcDataValue(object value, DateTime timeStamp)
     {
       Value = value;
       TimeStamp = timeStamp;

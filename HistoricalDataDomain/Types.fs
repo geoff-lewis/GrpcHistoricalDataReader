@@ -2,24 +2,24 @@
 
 open System
 
-type DoubleHistoricalDataValue =
+type DoubleDataValue =
   {
     Value : double
   }
 
-type StringHistoricalDataValue =
+type StringDataValue =
   {
     Value : string
   }
 
-type HistoricalDataValue = 
-  | DoubleValue of DoubleHistoricalDataValue
-  | StringValue of StringHistoricalDataValue
+type DataValue = 
+  | DoubleValue of DoubleDataValue
+  | StringValue of StringDataValue
 
 type HistoricalValue = 
   {
     TimeStamp : DateTime
-    Value : HistoricalDataValue
+    Value : DataValue
   }
 
 type HistoricalData =

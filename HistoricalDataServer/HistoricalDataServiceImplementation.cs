@@ -34,7 +34,7 @@ namespace HistoricalDataServer
 
       var results = Enumerable.Range(0, 3).Select(i => HistoricalDataDomain.HistoricalDataValues.CreateHistoricalValue(
          startDate.AddDays(i),
-         HistoricalDataDomain.HistoricalDataValues.CreateDoubleHistoricalDataValue(random.Next())
+         HistoricalDataDomain.HistoricalDataValues.CreateDoubleDataValue(random.Next())
          )).ToArray();
 
       var result = HistoricalDataDomain.DomainToMessage.CreateHistoricalDataResponseMessage(savedItemId, propertyName, results);
@@ -49,7 +49,7 @@ namespace HistoricalDataServer
 
       var results = Enumerable.Range(0, 3).Select(i => HistoricalDataDomain.HistoricalDataValues.CreateHistoricalValue(
          startDate.AddDays(i),
-         HistoricalDataDomain.HistoricalDataValues.CreateStringHistoricalDataValue("Greetings from the past, ")
+         HistoricalDataDomain.HistoricalDataValues.CreateStringDataValue("Greetings from the past, ")
          )).ToArray();
 
       var result = HistoricalDataDomain.DomainToMessage.CreateHistoricalDataResponseMessage(savedItemId, propertyName, results);
