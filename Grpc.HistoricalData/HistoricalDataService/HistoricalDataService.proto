@@ -1,0 +1,11 @@
+﻿syntax = "proto3";
+package Grpc.HistoricalData;
+
+import "google/protobuf/empty.proto";
+import "Protos/HistoricalDataValue.proto";
+import "Protos/HistoricalDataRequest.proto";
+import "Protos/HistoricalDataResponse.proto";
+
+service HistoricalDataService{
+ rpc GetHistoricalData(HistoricalDataRequest) returns(HistoricalDataResponse);  
+}

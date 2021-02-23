@@ -1,0 +1,10 @@
+﻿syntax = "proto3";
+package Grpc.HistoricalData;
+
+import "Protos/HistoricalDataValue.proto";
+
+message HistoricalDataResponse {
+ string SavedItemId = 1;
+ string PropertyName = 2;
+ repeated HistoricalDataValue Values = 3;
+}

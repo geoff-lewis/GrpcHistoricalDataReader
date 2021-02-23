@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Types.fs" />
+    <Compile Include="HistoricalDataValues.fs" />
+    <Compile Include="DomainToMessage.fs" />
+    <Compile Include="MessageToDomain.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Compiler.Tools" GeneratePathProperty="true">
+      <Version>10.2.3</Version>
+    </PackageReference>
+    <PackageReference Include="Grpc.Core" Version="2.30.0" />
+    <PackageReference Include="System.ValueTuple" Version="4.4.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="4.7.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Grpc.HistoricalData\Grpc.HistoricalData.csproj" />
+  </ItemGroup>
+
+</Project>

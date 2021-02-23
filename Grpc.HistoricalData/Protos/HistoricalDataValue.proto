@@ -1,0 +1,12 @@
+﻿syntax = "proto3";
+package Grpc.HistoricalData;
+
+import "google/protobuf/timestamp.proto";
+
+message HistoricalDataValue{
+  google.protobuf.Timestamp Timestamp = 1;
+  oneof Value{
+    double DoubleValue = 2;
+    string StringValue = 3;
+  }
+}

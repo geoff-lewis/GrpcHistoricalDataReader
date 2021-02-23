@@ -1,0 +1,7 @@
+﻿syntax = "proto3";
+package Grpc.HistoricalData;
+
+message HistoricalDataRequest {
+ string SavedItemId = 1;
+ string PropertyName = 2;
+}
