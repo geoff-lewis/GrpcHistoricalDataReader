@@ -10,16 +10,14 @@ let CreateDataValue (historicalValue:Grpc.HistoricalData.HistoricalDataValue) =
   match historicalValue.ValueCase with  
     |Grpc.HistoricalData.HistoricalDataValue.ValueOneofCase.DoubleValue ->  CreateDoubleDataValue historicalValue.DoubleValue |> Option.Some
     |Grpc.HistoricalData.HistoricalDataValue.ValueOneofCase.StringValue  -> CreateStringDataValue historicalValue.StringValue |> Option.Some
-    |_ -> Option.None
+    |Grpc.HistoricalData.HistoricalDataValue.ValueOneofCase.None -> Option.None
+    | _ -> failwith "Somebody created an enum value with an illegal value."
 
-let CreateHistoricalValue (timestamp:Google.Protobuf.WellKnownTypes.Timestamp) dataValue =
-    match dataValue with
-      |Some x -> {
-                  TimeStamp = timestamp.ToDateTime()
-                  Value = dataValue.Value 
-                  } |> Option.Some
-      | _ -> Option.None
-
+let CreateHistoricalValue (timestamp:Google.Protobuf.WellKnownTypes.Timestamp) dataValueOption =
+   dataValueOption |> Option.map( fun dataValue->{
+        TimeStamp = timestamp.ToDateTime()
+        Value = dataValue 
+        })
 
 let CreateHistoricalValues (historicalValues:RepeatedField<Grpc.HistoricalData.HistoricalDataValue>) =
    historicalValues |> Seq.choose (fun historicalValue  -> CreateDataValue historicalValue |> CreateHistoricalValue historicalValue.Timestamp) |> Seq.toArray
